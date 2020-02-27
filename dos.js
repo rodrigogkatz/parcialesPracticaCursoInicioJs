@@ -15,6 +15,15 @@ function mostrar(){
     var mensaje;
 
     for(var i=0; i < indice; i++){
+
+
+        /** 
+         * declaro las varaiables
+         * declaro todos los prompts
+         * 
+         * 
+         * 
+        */
         nombre = prompt("nombre");
 
         do{
@@ -25,11 +34,14 @@ function mostrar(){
             } else if (genero === "femenino"){
                 contadorGeneral++;
                 break;
-            } else {
+            } else if (genero === "otro"){
                 contadorGeneral++;
                 break;
+            } else {
+                gemero = prompt("ERROR. El genero debe ser femenino/masculino/otro");
+                break;
             }
-        } while (genero !== "masculino" || genero !== "femenino" || genero !== "otro" );
+        } while (genero !== "masculino" && genero !== "femenino" && genero !== "otro" );
 
         do{
             edad = parseInt(prompt("edad"));
@@ -39,7 +51,7 @@ function mostrar(){
                 promedio = edad/contadorEdadesMayores;
                 break;
             }
-        } while(edad<18 || edad>100 );
+        } while(isNaN(edad) || edad<18 || edad>100 );
    
         do{
             peso = prompt("peso");
@@ -56,7 +68,7 @@ function mostrar(){
                 contadorGeneral++;
             }
             break;
-        } while(isNaN(peso) && peso<1);
+        } while(isNaN(peso) && peso<=1);
     }
 
     alert(`- Promedio de las edades mayores o iguales a 25: ${promedio} (apróx).`)
