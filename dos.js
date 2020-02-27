@@ -1,6 +1,6 @@
 function mostrar(){
 
-    var indice = 4;
+    var indice = 3;
     var contadorMasculino;
     var contadorGeneral = 0;
     var contadorEdadesMayores= 0;
@@ -12,18 +12,10 @@ function mostrar(){
     var minPeso;
     var maxPeso;
     var promedio;
-    var mensaje;
+    var personaMenosPesada;
 
-    for(var i=0; i < indice; i++){
-
-
-        /** 
-         * declaro las varaiables
-         * declaro todos los prompts
-         * 
-         * 
-         * 
-        */
+    for(var i=0; i <= indice; i++){
+        
         nombre = prompt("nombre");
 
         do{
@@ -60,7 +52,7 @@ function mostrar(){
                 maxPeso = peso;
             } else if (peso<minPeso){
                 minPeso = peso;
-                mensaje = `"${nombre}" (${minPeso} kg)`;
+                personaMenosPesada = nombre;
             } else if (peso>maxPeso){
                 maxPeso = peso;
             }
@@ -71,7 +63,7 @@ function mostrar(){
         } while(isNaN(peso) && peso<=1);
     }
 
-    alert(`- Promedio de las edades mayores o iguales a 25: ${promedio} (apróx).`)
-    alert(mensaje);
-    alert(contadorGeneral);
+    alert(`Promedio de las edades mayores o iguales a 25: ${promedio.toFixed(2)} (apróx).`)
+    alert(`Nombre de la persona menos pesada y su peso: "${personaMenosPesada}" (${minPeso} kg).`);
+    alert(`Cantidad de personas de género distinto a masculino ó peso mayor a 80: ${contadorGeneral}.`);
 }
