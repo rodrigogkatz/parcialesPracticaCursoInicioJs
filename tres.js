@@ -36,44 +36,66 @@ function mostrar()
     var maxCantHab = 0;
     var habitantesTotales = 0;
     var promedioDeHabitantesTotales = 0;
+    var contadorDeIteracionesParaHabitantes = 0;
     var temperaturaMaximaIngresada = 0;
-    var nombreDelPaisDeMayorTemperatura = '';
-    var contadorDeIteraciones = 0;
+    var nombreDelPaisConMayorTemperatura = '';
+    var contadorDeIteracionesParaMaximaTemperaturaDeUnPais = 0;
+    var temperaturaMaxima = 0;
+    var temperaturaMinima = 0;
 
     while(respuesta.toLowerCase() === 'si'.toLowerCase()){
 
         nombreDelPais = prompt("ingrese el nombre de un pais");
         cantidadDeHabitantes = parseInt(prompt("cantidad de habitantes entre 1 y 270 millones"));
-        temperaturaMinimaRegistrada = parseInt(prompt("temperatura mínima que se registra en su territorio"));
+        temperaturaRegistrada = parseInt(prompt("temperatura mínima que se registra en su territorio"));
     
-        if(temperaturaMinimaRegistrada<20){
+        if(temperaturaRegistrada<20){
             contadorDePaisesConTemperaturasMenoresA20++;
         }
 
-        if(temperaturaMinimaRegistrada%2 == 1){
+        if(temperaturaRegistrada%2 == 1){
             contadorTemperaturasImpares++;
         }
 
-        if(contadorDeIteraciones == 0){
+        if(contadorDeIteracionesParaMaximaTemperaturaDeUnPais == 0){
+            temperaturaMaxima = temperaturaRegistrada;
+            temperaturaMinima = temperaturaRegistrada;
+            contadorDeIteracionesParaMaximaTemperaturaDeUnPais++;
+        } else if (temperaturaRegistrada < temperaturaMinima){
+            temperaturaMinima = temperaturaRegistrada;
+            contadorDeIteracionesParaMaximaTemperaturaDeUnPais++;
+        } else if (temperaturaRegistrada > temperaturaMaxima){
+            temperaturaMaxima = temperaturaRegistrada;
+            contadorDeIteracionesParaMaximaTemperaturaDeUnPais++;
+        }
+
+        if(contadorDeIteracionesParaHabitantes == 0){
             minCantHab = cantidadDeHabitantes;
             maxCantHab = cantidadDeHabitantes;
-            contadorDeIteraciones++;
+            contadorDeIteracionesParaHabitantes++;
         } else if (cantidadDeHabitantes < minCantHab){
             minCantHab = cantidadDeHabitantes;
-            contadorDeIteraciones++;
+            contadorDeIteracionesParaHabitantes++;
         } else if (cantidadDeHabitantes > maxCantHab){
             maxCantHab = cantidadDeHabitantes;
-            contadorDeIteraciones++;
+            contadorDeIteracionesParaHabitantes++;
             nombreDelPaisConMasHabitantes = nombreDelPais;
         }
 
         if(habitantesTotales){
             habitantesTotales += habitantesTotales;
-            promedioDeHabitantesTotales = habitantesTotales/(contadorDeIteraciones+1);
+            promedioDeHabitantesTotales = habitantesTotales/(contadorDeIteracionesParaHabitantes+1);
+            nombreDelPaisConMasHabitantes = nombreDelPais;
         }
 
         if (respuesta === 'no'){
-
+            respuesta = 'no';
         }
     } 
+
+    document.write("<br>La cantidad de temperaturas impares: "+ contadorTemperaturasImpares +"<br>");
+	document.write("<br>El nombre del pais con más habitantes: "+ nombreDelPaisConMasHabitantes +"<br>");
+    document.write("<br>La cantidad de paises por debajo de los 20 grados: "+ contadorDePaisesConTemperaturasMenoresA20 +"<br>");
+    document.write("<br>El promedio de habitantes entre los paises ingresados: "+ promedioDeHabitantesTotales +"<br>");
+    document.write("<br>La temperatura máxima ingresada, "+  +" y nombre del pais que registro esa temperatura: "+  +"<br>");
 }
