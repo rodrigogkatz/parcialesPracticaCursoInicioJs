@@ -40,12 +40,10 @@ function mostrar()
     var nombreDelPaisDeMayorTemperatura = '';
     var contadorDeIteraciones = 0;
 
-    while(respuesta !== 'no'){
+    while(respuesta.toLowerCase() === 'si'.toLowerCase()){
 
         nombreDelPais = prompt("ingrese el nombre de un pais");
-
         cantidadDeHabitantes = parseInt(prompt("cantidad de habitantes entre 1 y 270 millones"));
-        
         temperaturaMinimaRegistrada = parseInt(prompt("temperatura mínima que se registra en su territorio"));
     
         if(temperaturaMinimaRegistrada<20){
@@ -59,6 +57,7 @@ function mostrar()
         if(contadorDeIteraciones == 0){
             minCantHab = cantidadDeHabitantes;
             maxCantHab = cantidadDeHabitantes;
+            contadorDeIteraciones++;
         } else if (cantidadDeHabitantes < minCantHab){
             minCantHab = cantidadDeHabitantes;
             contadorDeIteraciones++;
@@ -70,7 +69,7 @@ function mostrar()
 
         if(habitantesTotales){
             habitantesTotales += habitantesTotales;
-            promedioDeHabitantesTotales = habitantesTotales/contadorDeIteraciones;
+            promedioDeHabitantesTotales = habitantesTotales/(contadorDeIteraciones+1);
         }
 
         if (respuesta === 'no'){
