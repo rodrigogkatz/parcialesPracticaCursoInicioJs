@@ -12,7 +12,8 @@ d) El promedio de habitantes entre los paises ingresados.
 f) La temperatura máxima ingresada, y nombre del pais que registro esa temperatura.
 
 Testeo con los siguientes valores:
-1) Nombre: "Argentina"; Cantidad: 271 (mal), Cantidad: 0 (mal), Cantidad: 40 (bien); Temperatura: -11.
+1) Nombre: "Argentina"; Cantidad: 271 (mal), Cantidad: 0 (mal), 
+Cantidad: 40 (bien); Temperatura: -11.
 2) Nombre: "Costa Rica"; Cantidad: 4; Temperatura: -51 (mal), Temperatura: 51 (mal), Temperatura: 22 (bien).
 3) Nombre: "Brasil"; Cantidad: 200; Temperatura: 20.
 4) Nombre: "Chile"; Cantidad: 15; Temperatura: -21.
@@ -29,6 +30,11 @@ Resultado:
 function mostrar()
 {
     var respuesta = 'si';
+	
+	var nombreDelPais = '';
+	var cantidadDeHabitantes = 0;
+	var temperaturaRegistrada = 0;
+	
     var contadorTemperaturasImpares = 0;
     var nombreDelPaisConMasHabitantes = '';
     var contadorDePaisesConTemperaturasMenoresA20 = 0;
@@ -46,14 +52,28 @@ function mostrar()
     while(respuesta.toLowerCase() === 'si'.toLowerCase()){
 
         nombreDelPais = prompt("ingrese el nombre de un pais");
-        cantidadDeHabitantes = parseInt(prompt("cantidad de habitantes entre 1 y 270 millones"));
+        
+		while(!nombreDelPais || nombreDelPais == '' || nombreDelPais == undefined){
+			nombreDelPais = prompt("ERROR! ingrese el nombre de un pais");
+		}
+		
+		cantidadDeHabitantes = parseInt(prompt("cantidad de habitantes entre 1 y 270 millones"));
+		
+		while(cantidadDeHabitantes && cantidadDeHabitantes < 1 && cantidadDeHabitantes > 270 || isNaN(cantidadDeHabitantes)){
+			cantidadDeHabitantes = prompt("ERROR! Cantidad de habitantes entre 1.000.000 y 270.000.000");
+		}
+		
         temperaturaRegistrada = parseInt(prompt("temperatura mínima que se registra en su territorio"));
-    
+		
+		while(temperaturaRegistrada && temperaturaRegistrada < -50 && temperaturaRegistrada > 50 || isNaN(temperaturaRegistrada)){
+			temperaturaRegistrada = prompt("ERROR! El registro de temperatura debe ser entre -50 y 50");
+		}
+		
         if(temperaturaRegistrada<20){
             contadorDePaisesConTemperaturasMenoresA20++;
         }
 
-        if(temperaturaRegistrada%2 == 1){
+        if(temperaturaRegistrada%2 != 0){
             contadorTemperaturasImpares++;
         }
 
@@ -66,6 +86,7 @@ function mostrar()
             contadorDeIteracionesParaMaximaTemperaturaDeUnPais++;
         } else if (temperaturaRegistrada > temperaturaMaxima){
             temperaturaMaxima = temperaturaRegistrada;
+			nombreDelPaisConMayorTemperatura = nombreDelPais;
             contadorDeIteracionesParaMaximaTemperaturaDeUnPais++;
         }
 
@@ -82,14 +103,15 @@ function mostrar()
             nombreDelPaisConMasHabitantes = nombreDelPais;
         }
 
-        if(habitantesTotales){
-            habitantesTotales += habitantesTotales;
-            promedioDeHabitantesTotales = habitantesTotales/(contadorDeIteracionesParaHabitantes+1);
-            nombreDelPaisConMasHabitantes = nombreDelPais;
+        if(cantidadDeHabitantes){
+            habitantesTotales = habitantesTotales + cantidadDeHabitantes;
+            promedioDeHabitantesTotales = habitantesTotales/contadorDeIteracionesParaHabitantes;
         }
 
+		respuesta = prompt("Desea Continuar?");
         if (respuesta === 'no'){
             respuesta = 'no';
+			break;
         }
     } 
 
@@ -97,5 +119,5 @@ function mostrar()
 	document.write("<br>El nombre del pais con más habitantes: "+ nombreDelPaisConMasHabitantes +"<br>");
     document.write("<br>La cantidad de paises por debajo de los 20 grados: "+ contadorDePaisesConTemperaturasMenoresA20 +"<br>");
     document.write("<br>El promedio de habitantes entre los paises ingresados: "+ promedioDeHabitantesTotales +"<br>");
-    document.write("<br>La temperatura máxima ingresada, "+  +" y nombre del pais que registro esa temperatura: "+  +"<br>");
+    document.write("<br>La temperatura máxima ingresada, "+ temperaturaMaxima +" y nombre del pais que registro esa temperatura: "+ nombreDelPaisConMayorTemperatura +"<br>");
 }
