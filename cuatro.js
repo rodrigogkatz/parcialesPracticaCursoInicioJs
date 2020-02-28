@@ -45,12 +45,18 @@ function mostrar(){
 	
 	var contadorDeNumeros = 0;
 	var contadorNumerosImpares = 0;
+	var contadorNumerosPares = 0;
+
+
 	var contadorDeCeros = 0;
+	
 	var contadorDeNumerosNegativos = 0;
 	var promedioDeNumerosNegativos = 0;
 	
 	var contadorDeMultiplicacion = 0;
 	var valorDeMultiplicacion;
+	var valorDeSuma = 0;
+	var valorDeResta = 0;
 	
 	var maxNum = 0;
 	var minNum = 0;
@@ -60,33 +66,47 @@ function mostrar(){
 	
 	while(respuesta == 'si'){
 	
-		letra = prompt("ingrese una letra");
-		while(letra === 'ñ' || letra === 'Ñ'){
-			letra = prompt("ERROR! ingrese una letra nuevamente");
+		letra = prompt("ingrese una letra").toUpperCase();
+		while(letra < 'a'.toUpperCase() || letra > 'z'.toUpperCase()){
+			if(letra === 'ñ' || letra === 'Ñ'){
+				letra = prompt("ERROR! ingrese una letra nuevamente");
+			} else {
+				letra = prompt("ERROR! ingrese una letra nuevamente");
+			}
 		}
 		
 		numero = parseInt(prompt("ingrese un numero"));
-		while(numero < -10 || letra > 10){
+		while(isNaN(numero) || numero < -10 || numero > 10){
 			numero = prompt("ERROR! ingrese un numero nuevamente");
 		}
 		
+		//h) La cantidad de vocales.
 		switch(letra){
-			case 'a':
-			case 'e':
-			case 'i':
-			case 'o':
-			case 'u':
+			case 'A':
+			case 'E':
+			case 'I':
+			case 'O':
+			case 'U':
 				contadorDeVocales++;
 				break;
 		}
 		
-		
 		if(numero%2 != 0){
+			//a) La resta de los números impares.
+			valorDeResta = valorDeResta - numero;
 			contadorNumerosImpares++;
+		} else {
+			//b) La suma de los números pares.
+			valorDeSuma = valorDeSuma + numero;
+			contadorNumerosPares++;
 		}
+
+		//c) La cantidad de ceros.
 		if(numero == 0){
 			contadorDeCeros++;
 		}
+
+		//d) El promedio de todos los números negativos ingresados.
 		if(numero<0){
 			contadorDeNumerosNegativos++;
 			promedioDeNumerosNegativos = (promedioDeNumerosNegativos + numero)/contadorDeNumerosNegativos;
@@ -104,22 +124,34 @@ function mostrar(){
 		if(contadorDeNumeros == 0){
 			maxNum = numero;
 			minNum = numero;
+			letraMinNum = letra;
+			letraMaxNum = letra;
 			contadorDeNumeros++;
 		} else if (numero < minNum){
+			//g) El número y la letra del mínimo.
 			minNum = numero;
 			letraMinNum = letra;
 			contadorDeNumeros++;
 		} else if (numero > maxNum){
+			//f) El número y la letra del máximo.
 			maxNum = numero;
 			letraMaxNum = letra;
 			contadorDeNumeros++;
 		}
 		
-		
-		
-		
 		respuesta = prompt("Desea continuar?");
 		
 	}
+
+	document.write(
+		"a- La resta de los números impares: "+ valorDeResta +".<br>"+
+		"b- La suma de los números pares: "+ valorDeSuma +".<br>"+
+		"c- La cantidad de ceros: "+ contadorDeCeros +".<br>"+
+		"d- El promedio de todos los números negativos ingresados: "+ promedioDeNumerosNegativos +".<br>"+
+		"e- La multiplicación de todos los números positivos: "+ valorDeMultiplicacion +".<br>"+
+		"f- El número y la letra del máximo: "+ maxNum +" y "+ letraMaxNum +".<br>"+
+		"g- El número y la letra del mínimo: "+ minNum +" y "+ letraMinNum +".<br>"+
+		"h- La cantidad de vocales: "+ contadorDeVocales +"."
+		);
 
 }
